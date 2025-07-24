@@ -54,7 +54,8 @@ const ContactUs = () => {
 
         {/* Hero Section */}
         <motion.section
-          className="py-5 text-center bg-dark text-white"
+          id="hero"
+          className="text-center bg-dark text-white about-hero"
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
@@ -69,6 +70,7 @@ const ContactUs = () => {
 
         {/* Contact Form */}
         <motion.section
+          id="contact-form"
           className="py-5"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -132,6 +134,7 @@ const ContactUs = () => {
 
         {/* Contact Information */}
         <motion.section
+          id="contact-info"
           className="py-5 bg-light"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -147,7 +150,7 @@ const ContactUs = () => {
               >
                 <i className="bi bi-telephone-fill display-4 text-primary"></i>
                 <h4 className="mt-3">Call Us</h4>
-                <p>+92 300 1234567</p>
+                <p>+92-3346971121</p>
               </motion.div>
               <motion.div
                 className="col-md-4"
@@ -173,6 +176,7 @@ const ContactUs = () => {
 
         {/* Call to Action */}
         <motion.section
+          id="cta"
           className="py-5 bg-primary text-white text-center"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}

@@ -11,7 +11,7 @@ class XLNetClassifier(nn.Module):
     def __init__(self):
         super().__init__()
         # Load XLNet model from pre-trained weights
-        self.xlnet = XLNetModel.from_pretrained('xlnet-base-cased')
+        self.xlnet = XLNetModel.from_pretrained('xlnet-base-cased', trust_remote_code=True, use_safetensors=True)
         # Define attention layer
         self.attn = nn.Sequential(
             nn.Linear(self.xlnet.config.hidden_size, 512),

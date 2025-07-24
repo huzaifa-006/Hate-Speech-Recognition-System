@@ -57,7 +57,7 @@ const Register = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        <h3 className="text-center text-primary fw-bold">Join Hate speech Recognizer </h3>
+        <h3 className="text-center text-primary fw-bold">Join Hate speech Detector </h3>
         <p className="text-center text-muted">Create your account</p>
 
         {error && (

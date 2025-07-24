@@ -7,9 +7,32 @@ import AuthContext from '../context/AuthContext';
 import pic1 from "../assets/a.jpg"
 import pic2 from "../assets/a1.jpg"
 import pic3 from "../assets/a2.jpg"
+import "./Home.css";
 
 const Home = () => {
     const { user } = useContext(AuthContext);
+
+    // Replace local images with Unsplash URLs for hero section
+    const heroImages = [
+      {
+        url: pic1,
+        heading: "AI That Understands Words—Not Just Flags Them",
+        message: "Our AI analyzes chat messages in real time to flag hate speech and protect your community.",
+        button: { text: "See Features", scrollTo: "features" }
+      },
+      {
+        url: pic2,
+        heading: "Spotting Harmful Words Before They Spread",
+        message: "See how our system highlights and detects toxic language using advanced NLP techniques.",
+        button: { text: "See Testimonials", scrollTo: "testimonials" }
+      },
+      {
+        url: pic3,
+        heading: "Empowering Moderators, Protecting Communities",
+        message: "Moderators can easily flag and review hate speech, keeping online spaces safe and inclusive.",
+        button: { text: "Join the Mission", scrollTo: "cta" }
+      }
+    ];
 
     return (
         <motion.div
@@ -44,81 +67,30 @@ const Home = () => {
                     ></button>
                 </div>
                 <div className="carousel-inner">
-                    <div className="carousel-item active">
+                    {heroImages.map((img, idx) => (
+                      <div className={`carousel-item${idx === 0 ? " active" : ""}`} key={img.url}>
                         <img
-                            src={pic1}
-                            className="d-block w-100"
-                            alt="Hate Speech Detection"
-                            style={{ height: '600px', objectFit: 'cover' }}
+                          src={img.url}
+                          className="d-block w-100"
+                          alt={img.heading}
+                          style={{ height: '600px', objectFit: 'cover' }}
                         />
                         <div className="container">
-                            <div className="carousel-caption">
-                                <h1>Combat Hate Speech</h1>
-                                <p className="opacity-75">
-                                    Our AI system instantly detects hate speech across social platforms and communities.
-                                </p>
-                                <p>
-                                    {user ? (
-                                        <Link to="/detection" className="btn btn-lg btn-primary">
-                                            Start Detection
-                                        </Link>
-                                    ) : (
-                                        <Link to="/register" className="btn btn-lg btn-primary">
-                                            Try It Now
-                                        </Link>
-                                    )}
-                                </p>
-                            </div>
+                          <div className="carousel-caption">
+                            <h1>{img.heading}</h1>
+                            <p className="opacity-75">{img.message}</p>
+                            <p>
+                              <button
+                                className="btn btn-lg btn-primary"
+                                onClick={() => document.getElementById(img.button.scrollTo).scrollIntoView({ behavior: 'smooth' })}
+                              >
+                                {img.button.text}
+                              </button>
+                            </p>
+                          </div>
                         </div>
-                    </div>
-                    <div className="carousel-item">
-                        <img
-                            src={pic2}
-                            className="d-block w-100"
-                            alt="Sentiment Analysis"
-                            style={{ height: '600px', objectFit: 'cover' }}
-                        />
-                        <div className="container">
-                            <div className="carousel-caption">
-                                <h1>AI-Powered Insights</h1>
-                                <p>
-                                    Detect harmful content and gain real-time analysis and context.
-                                </p>
-                                <p>
-                                    {user ? (
-                                        <Link to="/dashboard" className="btn btn-lg btn-primary">
-                                            Go to Dashboard
-                                        </Link>
-                                    ) : (
-                                        <Link to="/login" className="btn btn-lg btn-primary">
-                                            Learn More
-                                        </Link>
-                                    )}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="carousel-item">
-                        <img
-                            src={pic3}
-                            className="d-block w-100"
-                            alt="Promote Healthy Discussions"
-                            style={{ height: '600px', objectFit: 'cover' }}
-                        />
-                        <div className="container">
-                            <div className="carousel-caption">
-                                <h1>Promote Healthy Discussions</h1>
-                                <p>
-                                    Mitigate online toxicity with our proactive hate speech detection.
-                                </p>
-                                <p>
-                                    <Link to="/aboutus" className="btn btn-lg btn-primary">
-                                        Discover How
-                                    </Link>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                      </div>
+                    ))}
                 </div>
                 <button
                     className="carousel-control-prev"
@@ -142,10 +114,11 @@ const Home = () => {
 
             {/* Hero Section */}
             <motion.section
+                id="hero"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="py-5 text-center bg-primary text-white"
+                className="py-5 text-center homepage-hero"
             >
                 <div className="container">
                     <h1 className="display-4 fw-bold">Welcome to Hate Speech Detection AI</h1>
@@ -169,9 +142,12 @@ const Home = () => {
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.95 }}
                                 >
-                                    <Link to="/detection" className="btn btn-outline-light btn-lg">
-                                        Start Detection
-                                    </Link>
+                                    <button
+                                        className="btn btn-outline-light btn-lg"
+                                        onClick={() => document.getElementById('features').scrollIntoView({ behavior: 'smooth' })}
+                                    >
+                                        See Features
+                                    </button>
                                 </motion.div>
                             </>
                         ) : (
@@ -202,7 +178,8 @@ const Home = () => {
 
             {/* Features Section */}
             <motion.section
-                className="py-5 bg-light"
+                id="features"
+                className="py-5 homepage-features"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
@@ -237,7 +214,8 @@ const Home = () => {
 
             {/* Testimonials Section */}
             <motion.section
-                className="py-5"
+                id="testimonials"
+                className="py-5 homepage-testimonials"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
@@ -293,7 +271,8 @@ const Home = () => {
 
             {/* Call to Action Section */}
             <motion.section
-                className="py-5 bg-primary text-white text-center"
+                id="cta"
+                className="py-5 homepage-cta text-center"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.8 }}

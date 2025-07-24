@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.safetensors
+.env
+node_modules/
+build/
+dist/
+*.log
+media/
+db.sqlite3
+staticfiles/

@@ -52,7 +52,7 @@ const Login = () => {
       >
         <div className="card shadow-lg p-4" style={{ width: "400px", borderRadius: "12px" }}>
           <h3 className="text-center text-primary fw-bold">Welcome Back!</h3>
-          <p className="text-center text-muted">Login to Hate Speech Recognizer</p>
+          <p className="text-center text-muted">Login to Hate Speech Detector</p>
           
           {error && (
             <motion.div 

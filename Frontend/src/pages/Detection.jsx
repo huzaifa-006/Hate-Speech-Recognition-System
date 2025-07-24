@@ -175,13 +175,13 @@ const DetectionPage = () => {
       <Navbar />
 
       <motion.section
-        className="py-5 bg-dark text-white text-center"
+        className="py-5 text-center detection-hero"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
       >
         <div className="container">
-          <h1 className="display-5">Hate Speech Detection</h1>
+          <h1 className="display-5 section-title">Hate Speech Detection</h1>
           <p className="lead">Enter text or upload a file to detect hate speech using our AI model.</p>
           
           {/* Backend Test Button */}
@@ -204,7 +204,7 @@ const DetectionPage = () => {
       </motion.section>
 
       <motion.section
-        className="py-5"
+        className="py-5 detection-features"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.2 }}
@@ -327,8 +327,13 @@ const DetectionPage = () => {
 
           {/* Extracted Text */}
           {extractedText && (
-            <div className="mt-4">
-              <div className="card">
+            <motion.div 
+              className="mt-4 fade-in"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="card border-0 shadow shadow-card rounded-4">
                 <div className="card-header">
                   <h5 className="mb-0">Extracted Text</h5>
                 </div>
@@ -336,19 +341,19 @@ const DetectionPage = () => {
                   <p className="text-muted">{extractedText}</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           )}
 
           {/* Results */}
           {result && (
             <motion.div 
-              className="mt-4"
+              className="mt-4 fade-in"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <div className="card border-0 shadow">
-                <div className="card-header bg-primary text-white">
+              <div className="card border-0 shadow shadow-card rounded-4">
+                <div className="card-header bg-primary text-white rounded-4">
                   <h5 className="mb-0">
                     <i className="bi bi-graph-up me-2"></i>
                     Analysis Results
@@ -468,13 +473,13 @@ const DetectionPage = () => {
           {/* Feedback Section */}
           {showFeedback && (
             <motion.div 
-              className="mt-4"
+              className="mt-4 fade-in"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <div className="card border-0 shadow">
-                <div className="card-header bg-success text-white">
+              <div className="card border-0 shadow shadow-card rounded-4">
+                <div className="card-header bg-success text-white rounded-4">
                   <h5 className="mb-0">
                     <i className="bi bi-star me-2"></i>
                     Rate This Analysis

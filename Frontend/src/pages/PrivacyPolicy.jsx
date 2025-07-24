@@ -136,7 +136,7 @@ const PrivacyPolicy = () => {
                                 <ul>
                                     <li>Email: privacy@hatespeechdetection.com</li>
                                     <li>Address: UIIT, PMAS Arid Agriculture University, Rawalpindi</li>
-                                    <li>Phone: +92 (341) 5310-800</li>
+                                    <li>Phone: +92-3346971121</li>
                                 </ul>
                             </div>
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/detection/';
+const BASE_URL = 'http://localhost:8000/';
 
 export const detectHateSpeech = async (text, file = null) => {
     try {
@@ -8,7 +8,7 @@ export const detectHateSpeech = async (text, file = null) => {
         if (text) formData.append('text', text);
         if (file) formData.append('file', file);
 
-        const response = await axios.post(API_URL, formData, {
+        const response = await axios.post(`${BASE_URL}detection/`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             }
@@ -25,7 +25,7 @@ export const detectHateSpeech = async (text, file = null) => {
 
 export const submitFeedback = async (detectionId, rating, comment = '') => {
     try {
-        const response = await axios.post(`${API_URL}feedback/`, {
+        const response = await axios.post(`${BASE_URL}feedback/`, {
             detection_id: detectionId,
             rating: rating,
             comment: comment
