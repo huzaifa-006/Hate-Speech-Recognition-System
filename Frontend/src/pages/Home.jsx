@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -9,16 +9,48 @@ import pic2 from "../assets/a1.jpg"
 import pic3 from "../assets/a2.jpg"
 import "./Home.css";
 
+// Starry background generator
+const StarBackground = () => {
+  const stars = Array.from({ length: 60 }).map((_, i) => {
+    const size = Math.random() * 2 + 1.5;
+    const top = Math.random() * 100;
+    const left = Math.random() * 100;
+    const duration = 2 + Math.random() * 2;
+    return (
+      <div
+        key={i}
+        className="star"
+        style={{
+          width: size,
+          height: size,
+          top: `${top}%`,
+          left: `${left}%`,
+          animationDuration: `${duration}s`,
+        }}
+      />
+    );
+  });
+  return <div className="star-bg">{stars}</div>;
+};
+
 const Home = () => {
     const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const handleStartDetection = (e) => {
+      e.preventDefault();
+      navigate('/detection');
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
+    };
 
     // Replace local images with Unsplash URLs for hero section
     const heroImages = [
       {
-        url: pic1,
-        heading: "AI That Understands Words—Not Just Flags Them",
-        message: "Our AI analyzes chat messages in real time to flag hate speech and protect your community.",
-        button: { text: "See Features", scrollTo: "features" }
+        url: "https://plus.unsplash.com/premium_photo-1661817214148-2d4cf768a7c3?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDl8fGNvbXB1dGVyfGVufDB8MHwwfHx8MA%3D%3D", // User-provided Unsplash premium photo
+        heading: "AI Moderation: Detecting Toxic Comments in Real Time",
+        message: "See how our AI model flags hate and toxic language directly on your laptop, keeping your community safe.",
+        button: { text: "Features", scrollTo: "features" }
       },
       {
         url: pic2,
@@ -43,8 +75,10 @@ const Home = () => {
             <Navbar />
 
             {/* Carousel Section */}
-            <div id="carouselExample" className="carousel slide mb-6" data-bs-ride="carousel">
-                <div className="carousel-indicators">
+            <div id="carouselExample" className="carousel slide mb-6 position-relative" data-bs-ride="carousel">
+                {/* Overlay for better text contrast */}
+                <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(30,41,59,0.32)', zIndex: 1}}></div>
+                <div className="carousel-indicators" style={{zIndex: 2}}>
                     <button
                         type="button"
                         data-bs-target="#carouselExample"
@@ -66,27 +100,48 @@ const Home = () => {
                         aria-label="Slide 3"
                     ></button>
                 </div>
-                <div className="carousel-inner">
+                <div className="carousel-inner" style={{zIndex: 2}}>
                     {heroImages.map((img, idx) => (
                       <div className={`carousel-item${idx === 0 ? " active" : ""}`} key={img.url}>
-                        <img
-                          src={img.url}
-                          className="d-block w-100"
-                          alt={img.heading}
-                          style={{ height: '600px', objectFit: 'cover' }}
-                        />
-                        <div className="container">
-                          <div className="carousel-caption">
-                            <h1>{img.heading}</h1>
-                            <p className="opacity-75">{img.message}</p>
-                            <p>
-                              <button
-                                className="btn btn-lg btn-primary"
-                                onClick={() => document.getElementById(img.button.scrollTo).scrollIntoView({ behavior: 'smooth' })}
-                              >
-                                {img.button.text}
-                              </button>
-                            </p>
+                        <div style={{position: 'relative'}}>
+                          <img
+                            src={img.url}
+                            className="d-block w-100"
+                            alt={img.heading}
+                            style={{ height: '600px', objectFit: 'cover', objectPosition: 'center 10%', filter: 'brightness(0.92)' }}
+                          />
+                          <div className="container">
+                            <div className="carousel-caption" style={{paddingBottom: '2.5rem'}}>
+                              <h1 style={{fontSize: '3rem', fontWeight: 900, textShadow: '0 4px 24px rgba(30,41,59,0.18)', letterSpacing: '1.2px'}}>{img.heading}</h1>
+                              <p className="opacity-75" style={{fontSize: '1.35rem', fontWeight: 500, textShadow: '0 2px 8px rgba(30,41,59,0.12)'}}>{img.message}</p>
+                              <p>
+                                <button
+                                  className="btn hero-blue-btn"
+                                  style={{
+                                    minWidth: 120,
+                                    height: 40,
+                                    borderRadius: 20,
+                                    fontSize: '1rem',
+                                    fontWeight: 'bold',
+                                    color: '#fff',
+                                    background: '#4f8cff',
+                                    border: 'none',
+                                    boxShadow: '0 4px 24px rgba(44,62,80,0.10)',
+                                    transition: 'background 0.18s, color 0.18s, transform 0.18s',
+                                    textAlign: 'center',
+                                    padding: 0,
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                  }}
+                                  onClick={() => document.getElementById(img.button.scrollTo).scrollIntoView({ behavior: 'smooth' })}
+                                  onMouseOver={e => {e.currentTarget.style.background = '#1a237e'; e.currentTarget.style.color = '#fff';}}
+                                  onMouseOut={e => {e.currentTarget.style.background = '#4f8cff'; e.currentTarget.style.color = '#fff';}}
+                                >
+                                  {img.button.text}
+                                </button>
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -120,7 +175,8 @@ const Home = () => {
                 transition={{ duration: 0.5, delay: 0.3 }}
                 className="py-5 text-center homepage-hero"
             >
-                <div className="container">
+                <StarBackground />
+                <div className="container" style={{ position: 'relative', zIndex: 1 }}>
                     <h1 className="display-4 fw-bold">Welcome to Hate Speech Detection AI</h1>
                     <p className="lead">
                         Revolutionizing social media with AI-powered real-time hate speech detection and actionable insights.
@@ -133,8 +189,29 @@ const Home = () => {
                                     whileTap={{ scale: 0.95 }}
                                     className="me-2"
                                 >
-                                    <Link to="/dashboard" className="btn btn-light btn-lg">
-                                        Go to Dashboard
+                                    <Link to="/dashboard"
+                                      className="btn hero-blue-btn"
+                                      style={{
+                                        minWidth: 160,
+                                        height: 52,
+                                        borderRadius: 26,
+                                        fontSize: '1.15rem',
+                                        fontWeight: 'bold',
+                                        color: '#fff',
+                                        background: '#4f8cff',
+                                        border: 'none',
+                                        boxShadow: '0 4px 24px rgba(44,62,80,0.10)',
+                                        transition: 'background 0.18s, color 0.18s, transform 0.18s',
+                                        textAlign: 'center',
+                                        padding: 0,
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                      }}
+                                      onMouseOver={e => {e.currentTarget.style.background = '#1a237e'; e.currentTarget.style.color = '#fff';}}
+                                      onMouseOut={e => {e.currentTarget.style.background = '#4f8cff'; e.currentTarget.style.color = '#fff';}}
+                                    >
+                                      Dashboard
                                     </Link>
                                 </motion.div>
 
@@ -143,10 +220,29 @@ const Home = () => {
                                     whileTap={{ scale: 0.95 }}
                                 >
                                     <button
-                                        className="btn btn-outline-light btn-lg"
-                                        onClick={() => document.getElementById('features').scrollIntoView({ behavior: 'smooth' })}
+                                      className="btn hero-blue-btn"
+                                      style={{
+                                        minWidth: 160,
+                                        height: 52,
+                                        borderRadius: 26,
+                                        fontSize: '1.15rem',
+                                        fontWeight: 'bold',
+                                        color: '#fff',
+                                        background: '#4f8cff',
+                                        border: 'none',
+                                        boxShadow: '0 4px 24px rgba(44,62,80,0.10)',
+                                        transition: 'background 0.18s, color 0.18s, transform 0.18s',
+                                        textAlign: 'center',
+                                        padding: 0,
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                      }}
+                                      onClick={() => document.getElementById('features').scrollIntoView({ behavior: 'smooth' })}
+                                      onMouseOver={e => {e.currentTarget.style.background = '#1a237e'; e.currentTarget.style.color = '#fff';}}
+                                      onMouseOut={e => {e.currentTarget.style.background = '#4f8cff'; e.currentTarget.style.color = '#fff';}}
                                     >
-                                        See Features
+                                      Features
                                     </button>
                                 </motion.div>
                             </>
@@ -157,7 +253,10 @@ const Home = () => {
                                     whileTap={{ scale: 0.95 }}
                                     className="me-2"
                                 >
-                                    <Link to="/register" className="btn btn-light btn-lg">
+                                    <Link to="/register" className="btn hero-blue-btn" style={{minWidth: 160, height: 52, borderRadius: 26, fontSize: '1.15rem', fontWeight: 'bold', color: '#fff', background: '#4f8cff', border: 'none', boxShadow: '0 4px 24px rgba(44,62,80,0.10)', transition: 'background 0.18s, color 0.18s, transform 0.18s', textAlign: 'center', padding: 0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center'}}
+                                      onMouseOver={e => {e.currentTarget.style.background = '#1a237e'; e.currentTarget.style.color = '#fff';}}
+                                      onMouseOut={e => {e.currentTarget.style.background = '#4f8cff'; e.currentTarget.style.color = '#fff';}}
+                                    >
                                         Get Started
                                     </Link>
                                 </motion.div>
@@ -166,7 +265,10 @@ const Home = () => {
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.95 }}
                                 >
-                                    <Link to="/login" className="btn btn-outline-light btn-lg">
+                                    <Link to="/login" className="btn hero-blue-btn" style={{minWidth: 160, height: 52, borderRadius: 26, fontSize: '1.15rem', fontWeight: 'bold', color: '#fff', background: '#4f8cff', border: 'none', boxShadow: '0 4px 24px rgba(44,62,80,0.10)', transition: 'background 0.18s, color 0.18s, transform 0.18s', textAlign: 'center', padding: 0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center'}}
+                                      onMouseOver={e => {e.currentTarget.style.background = '#1a237e'; e.currentTarget.style.color = '#fff';}}
+                                      onMouseOut={e => {e.currentTarget.style.background = '#4f8cff'; e.currentTarget.style.color = '#fff';}}
+                                    >
                                         Learn More
                                     </Link>
                                 </motion.div>
@@ -186,27 +288,33 @@ const Home = () => {
             >
                 <div className="container">
                     <h2 className="text-center mb-4">Why Choose Hate Speech Detection?</h2>
-                    <div className="row">
-                        <div className="col-md-4 text-center">
-                            <i className="bi bi-emoji-heart-eyes display-2 text-primary"></i>
-                            <h4>Real-Time Detection</h4>
-                            <p>
-                                Detect harmful language instantly across posts, comments, and messages.
-                            </p>
+                    <div className="row g-4">
+                        <div className="col-md-4">
+                            <div className="card h-100 text-center p-4 shadow-card">
+                                <i className="bi bi-emoji-heart-eyes display-2 text-primary mb-3"></i>
+                                <h4>Real-Time Detection</h4>
+                                <p>
+                                    Detect harmful language instantly across posts, comments, and messages.
+                                </p>
+                            </div>
                         </div>
-                        <div className="col-md-4 text-center">
-                            <i className="bi bi-chat-dots display-2 text-primary"></i>
-                            <h4>Generative AI Insights</h4>
-                            <p>
-                                Understand the context and sentiment behind flagged content.
-                            </p>
+                        <div className="col-md-4">
+                            <div className="card h-100 text-center p-4 shadow-card">
+                                <i className="bi bi-chat-dots display-2 text-primary mb-3"></i>
+                                <h4>Generative AI Insights</h4>
+                                <p>
+                                    Understand the context and sentiment behind flagged content.
+                                </p>
+                            </div>
                         </div>
-                        <div className="col-md-4 text-center">
-                            <i className="bi bi-cloud display-2 text-primary"></i>
-                            <h4>Cloud-Based Platform</h4>
-                            <p>
-                                Access our detection system from anywhere, anytime, with scalable cloud infrastructure.
-                            </p>
+                        <div className="col-md-4">
+                            <div className="card h-100 text-center p-4 shadow-card">
+                                <i className="bi bi-cloud display-2 text-primary mb-3"></i>
+                                <h4>Cloud-Based Platform</h4>
+                                <p>
+                                    Access our detection system from anywhere, anytime, with scalable cloud infrastructure.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -222,46 +330,46 @@ const Home = () => {
             >
                 <div className="container">
                     <h2 className="text-center mb-4">What Users Say</h2>
-                    <div className="row">
+                    <div className="row g-4">
                         <motion.div
                             className="col-md-4"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
+                            whileHover={{ scale: 1.025 }}
+                            whileTap={{ scale: 0.98 }}
                         >
-                            <div className="card h-100">
+                            <div className="card h-100 p-4 shadow-card">
                                 <div className="card-body">
-                                    <p className="card-text">
+                                    <p className="card-text" style={{ fontSize: '1.08rem', fontWeight: 500 }}>
                                         "This tool has helped us reduce online toxicity significantly!"
                                     </p>
-                                    <p className="text-muted">- Sarah</p>
+                                    <p className="text-muted mb-0">- Sarah</p>
                                 </div>
                             </div>
                         </motion.div>
                         <motion.div
                             className="col-md-4"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
+                            whileHover={{ scale: 1.025 }}
+                            whileTap={{ scale: 0.98 }}
                         >
-                            <div className="card h-100">
+                            <div className="card h-100 p-4 shadow-card">
                                 <div className="card-body">
-                                    <p className="card-text">
+                                    <p className="card-text" style={{ fontSize: '1.08rem', fontWeight: 500 }}>
                                         "It flagged harmful comments I missed, making our community safer."
                                     </p>
-                                    <p className="text-muted">- John, Moderator</p>
+                                    <p className="text-muted mb-0">- John, Moderator</p>
                                 </div>
                             </div>
                         </motion.div>
                         <motion.div
                             className="col-md-4"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
+                            whileHover={{ scale: 1.025 }}
+                            whileTap={{ scale: 0.98 }}
                         >
-                            <div className="card h-100">
+                            <div className="card h-100 p-4 shadow-card">
                                 <div className="card-body">
-                                    <p className="card-text">
+                                    <p className="card-text" style={{ fontSize: '1.08rem', fontWeight: 500 }}>
                                         "The AI is spot-on with its analysis, and the insights are super helpful."
                                     </p>
-                                    <p className="text-muted">- Emily, Content Creator</p>
+                                    <p className="text-muted mb-0">- Emily, Content Creator</p>
                                 </div>
                             </div>
                         </motion.div>
@@ -283,11 +391,20 @@ const Home = () => {
                         Protect your online communities and foster healthier conversations with our AI-powered solution.
                     </p>
                     {user ? (
-                        <Link to="/detection" className="btn btn-light btn-lg">
-                            Start Detection
-                        </Link>
+                        <button
+                          className="btn hero-blue-btn"
+                          style={{minWidth: 160, height: 52, borderRadius: 26, fontSize: '1.15rem', fontWeight: 'bold', color: '#fff', background: '#4f8cff', border: 'none', boxShadow: '0 4px 24px rgba(44,62,80,0.10)', transition: 'background 0.18s, color 0.18s', textAlign: 'center', padding: 0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center'}}
+                          onClick={handleStartDetection}
+                          onMouseOver={e => {e.currentTarget.style.background = '#1a237e'; e.currentTarget.style.color = '#fff';}}
+                          onMouseOut={e => {e.currentTarget.style.background = '#4f8cff'; e.currentTarget.style.color = '#fff';}}
+                        >
+                          Start Detection
+                        </button>
                     ) : (
-                        <Link to="/register" className="btn btn-light btn-lg">
+                        <Link to="/register" className="btn hero-blue-btn" style={{fontSize: '1.08rem', padding: '0.55rem 1.5rem', borderRadius: '1.2rem', fontWeight: 700, color: '#fff', background: '#4f8cff', border: 'none', boxShadow: '0 4px 24px rgba(44,62,80,0.10)', transition: 'background 0.18s, color 0.18s, transform 0.18s'}}
+                          onMouseOver={e => {e.currentTarget.style.background = '#1a237e'; e.currentTarget.style.color = '#fff';}}
+                          onMouseOut={e => {e.currentTarget.style.background = '#4f8cff'; e.currentTarget.style.color = '#fff';}}
+                        >
                             Sign Up Now
                         </Link>
                     )}

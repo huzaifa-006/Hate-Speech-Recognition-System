@@ -27,13 +27,14 @@ const Navbar = () => {
   return (
     <>
       <motion.nav
-        className="navbar navbar-expand-lg custom-navbar"
+        className="navbar navbar-expand-lg custom-navbar py-3 shadow-sm"
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="container-fluid">
-          <Link className="navbar-brand" to="/">
+        <div className="container-fluid px-4">
+          <Link className="navbar-brand d-flex align-items-center gap-2" to="/" style={{ fontSize: '2.2rem', fontWeight: 900, letterSpacing: '1.5px', padding: '0.2rem 0.5rem' }}>
+            <i className="bi bi-shield-lock-fill me-2" style={{ fontSize: '2.2rem', color: '#4f8cff' }}></i>
             Hate Speech Detector
           </Link>
 
@@ -45,12 +46,13 @@ const Navbar = () => {
             aria-controls="navbarNav"
             aria-expanded="false"
             aria-label="Toggle navigation"
+            style={{ border: 'none', boxShadow: 'none' }}
           >
             <span className="navbar-toggler-icon"></span>
           </button>
 
           <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ms-auto">
+            <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center gap-3" style={{ fontSize: '1.13rem', fontWeight: 500 }}>
               {!user && (
                 <li className="nav-item">
                   <Link className="nav-link" to="/">

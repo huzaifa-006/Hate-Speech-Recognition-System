@@ -175,7 +175,7 @@ const DetectionPage = () => {
       <Navbar />
 
       <motion.section
-        className="py-5 text-center detection-hero"
+        className="py-5 text-center homepage-hero"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
@@ -570,6 +570,16 @@ const DetectionPage = () => {
             </motion.div>
           )}
         </div>
+      </motion.section>
+
+      {/* CTA/Info Section (if present) */}
+      <motion.section
+        className="py-5 bg-white text-dark"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.8 }}
+      >
+        {/* Add your CTA or info here if needed */}
       </motion.section>
 
       <Footer />

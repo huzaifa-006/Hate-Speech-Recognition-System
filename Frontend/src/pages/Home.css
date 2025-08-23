@@ -55,10 +55,7 @@
   color: #fff;
 }
 
-.detection-features {
-  background: #f7fafd;
-}
-
+/* .detection-features background removed for transparency */
 .detection-features .card,
 .detection-features .alert,
 .detection-features .progress,
@@ -99,11 +96,14 @@
 }
 
 .custom-navbar {
-  background: #232a34 !important; /* Elegant dark gray */
+  background: rgba(35, 42, 52, 0.7) !important; /* More transparent for frosted effect */
   color: #fff !important;
   box-shadow: 0 2px 8px rgba(35, 42, 52, 0.08);
-  border: none !important;
-  border-bottom: 1.5px solid #4f8cff !important; /* Soft blue accent */
+  border: 1px solid rgba(79, 140, 255, 0.08) !important; /* Subtle border for separation */
+  /* border-bottom: 1.5px solid #4f8cff !important; */ /* Soft blue accent */
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  z-index: 1050;
 }
 
 .custom-navbar .navbar {
@@ -129,8 +129,8 @@
 .custom-navbar .dropdown-item.active,
 .custom-navbar .dropdown-item:focus,
 .custom-navbar .dropdown-item:hover {
-  color: #4f8cff !important;
-  background: rgba(79, 140, 255, 0.08) !important;
+  color: #22c55e !important; /* Green */
+  background: transparent !important;
   border-radius: 0.5rem;
 }
 
@@ -164,6 +164,7 @@
   right: 0 !important;
   color: #222 !important;
   background: #fff !important;
+  z-index: 1100;
 }
 
 .custom-navbar .dropdown-item {
@@ -357,32 +358,150 @@ section, .section {
   }
 } 
 
-.about-hero {
-  min-height: 340px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+body, #root, main, .main, .container, .container-fluid {
   margin-top: 0 !important;
   padding-top: 0 !important;
-  padding-bottom: 4rem;
-  background: #393c41;
+} 
+
+/* Remove top padding/margin from the first section after the navbar on Contact Us page */
+body > div > div > section.py-5.text-center.bg-dark.text-white {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+} 
+
+/* Unique CTA for Contact Us page */
+.contact-cta-unique {
+  background: linear-gradient(90deg, #1de9b6 0%, #1dc8e9 100%);
+  color: #fff !important;
+} 
+
+/* --- HOMEPAGE POLISH --- */
+
+/* Hero overlay for better text contrast */
+.homepage-hero {
+  position: relative;
+  color: #fff;
+  overflow: hidden;
+}
+.homepage-hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(30, 41, 59, 0.32);
+  z-index: 1;
+}
+.homepage-hero .container, .homepage-hero .carousel-caption {
+  position: relative;
+  z-index: 2;
+}
+.homepage-hero h1, .homepage-hero .display-4 {
+  font-size: 3rem;
+  font-weight: 900;
+  text-shadow: 0 4px 24px rgba(30,41,59,0.18);
+  letter-spacing: 1.2px;
+}
+.homepage-hero p.lead {
+  font-size: 1.35rem;
+  font-weight: 500;
+  text-shadow: 0 2px 8px rgba(30,41,59,0.12);
 }
 
-.about-hero:first-child {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
+/* Ken Burns animated zoom for hero image */
+.homepage-hero .carousel-item.active img {
+  animation: kenburns-zoom 18s ease-in-out forwards;
+}
+@keyframes kenburns-zoom {
+  0% {
+    transform: scale(1) object-position(center 10%);
+  }
+  100% {
+    transform: scale(1.08) object-position(center 0%);
+  }
+}
+
+/* Features & Testimonials Card Polish */
+.homepage-features .card, .homepage-testimonials .card {
+  border-radius: 1.2rem;
+  box-shadow: 0 4px 24px rgba(44,62,80,0.10), 0 1.5px 8px rgba(79,140,255,0.08);
+  border: none;
+  transition: transform 0.18s cubic-bezier(.4,2,.6,1), box-shadow 0.18s;
+}
+.homepage-features .card:hover {
+  transform: scale(1.045) translateY(-4px);
+  box-shadow: 0 8px 32px rgba(44,62,80,0.16);
+}
+.homepage-testimonials .card:hover {
+  transform: scale(1.025) translateY(-2px);
+  box-shadow: 0 8px 32px rgba(44,62,80,0.16);
+}
+
+.homepage-features h2, .homepage-testimonials h2, .homepage-cta h2 {
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+}
+
+.homepage-features h4, .homepage-testimonials .card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* CTA Section Polish */
+.homepage-cta .btn {
+  font-size: 1.25rem;
+  padding: 0.9rem 2.8rem;
+  border-radius: 2rem;
+  font-weight: 700;
+  box-shadow: 0 4px 24px rgba(44,62,80,0.10);
+  transition: background 0.18s, color 0.18s, transform 0.18s;
+}
+.homepage-cta .btn:hover, .homepage-cta .btn:focus {
+  background: #22c55e;
+  color: #fff;
+  transform: scale(1.07);
+}
+
+/* Section spacing and font unification */
+.homepage-hero, .homepage-features, .homepage-testimonials, .homepage-cta {
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
 }
 
 @media (max-width: 768px) {
-  .about-hero {
-    min-height: 200px;
-    padding-top: 0 !important;
+  .homepage-hero h1, .homepage-hero .display-4 {
+    font-size: 2.1rem;
+  }
+  .homepage-features h2, .homepage-testimonials h2, .homepage-cta h2 {
+    font-size: 1.4rem;
+  }
+  .homepage-hero, .homepage-features, .homepage-testimonials, .homepage-cta {
+    padding-top: 2rem;
     padding-bottom: 2rem;
   }
 } 
 
-body, #root, main, .main, .container, .container-fluid {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
+/* Animated starry background for hero section */
+.homepage-hero {
+  position: relative;
+  overflow: hidden;
+}
+.star-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+.star {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 2.5s infinite alternate;
+}
+@keyframes twinkle {
+  0% { opacity: 0.7; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
 } 

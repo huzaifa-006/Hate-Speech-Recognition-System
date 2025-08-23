@@ -15,7 +15,7 @@ const AboutUs = () => {
 
         {/* Hero Section */}
         <motion.section
-          className="py-5 text-center bg-dark text-white"
+          className="py-5 text-center homepage-hero"
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
@@ -43,19 +43,24 @@ const AboutUs = () => {
            </div>
         </motion.section>
 
-        {/* Our Mission */}
+        {/* Info/Box Section (if present) */}
         <motion.section
-          className="py-5 bg-light"
+          className="py-5 detection-features"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+        >
+          {/* Add your about info content here, styled as a box/card if needed */}
+        </motion.section>
+
+        {/* CTA/Contact Info Section (if present) */}
+        <motion.section
+          className="py-5 bg-white text-dark"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.8 }}
         >
-          <div className="container text-center">
-            <h2 className="mb-4">Our Mission</h2>
-            <p>
-              Our mission is to empower social media platforms and online communities with cutting-edge AI tools to detect hate speech early, reduce online toxicity, and foster healthier online discussions. We aim to bridge the gap between technology and social harmony.
-            </p>
-          </div>
+          {/* Add your CTA or contact info here */}
         </motion.section>
 
         {/* Our Team Section */}

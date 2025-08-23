@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -32,11 +30,9 @@ const ContactUs = () => {
       const response = await submitContactForm(formData);
       console.log('Server response:', response); // Debug log
       
-      toast.success('Message sent successfully!');
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
       console.error('Form submission error:', error); // Debug log
-      toast.error(error.message || 'Failed to send message. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -50,15 +46,11 @@ const ContactUs = () => {
         transition={{ duration: 0.5 }}
       >
         <Navbar />
-        <ToastContainer position="top-right" autoClose={3000} />
 
         {/* Hero Section */}
         <motion.section
           id="hero"
-          className="text-center bg-dark text-white about-hero"
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          className="py-5 text-center homepage-hero"
         >
           <div className="container">
             <h1 className="display-4 fw-bold">Contact Us</h1>
@@ -119,7 +111,7 @@ const ContactUs = () => {
                   </div>
                   <motion.button
                     type="submit"
-                    className="btn btn-primary w-100"
+                    className="btn btn-lg btn-primary px-5"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     disabled={isSubmitting}
@@ -135,7 +127,7 @@ const ContactUs = () => {
         {/* Contact Information */}
         <motion.section
           id="contact-info"
-          className="py-5 bg-light"
+          className="py-5 homepage-cta text-white"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.8 }}
@@ -148,27 +140,83 @@ const ContactUs = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <i className="bi bi-telephone-fill display-4 text-primary"></i>
-                <h4 className="mt-3">Call Us</h4>
-                <p>+92-3346971121</p>
+                <a
+                  href="tel:+923346971121"
+                  style={{
+                    display: 'block',
+                    background: 'rgba(40,40,50,0.08)',
+                    borderRadius: '1rem',
+                    padding: '2rem 1rem',
+                    textAlign: 'center',
+                    color: '#232a34',
+                    textDecoration: 'none',
+                    fontWeight: 500,
+                    boxShadow: '0 2px 12px rgba(79,140,255,0.08)',
+                    transition: 'background 0.2s, box-shadow 0.2s',
+                  }}
+                  onMouseOver={e => e.currentTarget.style.background = 'rgba(79,140,255,0.10)'}
+                  onMouseOut={e => e.currentTarget.style.background = 'rgba(40,40,50,0.08)'}
+                >
+                  <i className="bi bi-telephone-fill display-4 text-primary"></i>
+                  <h4 className="mt-3">Call Us</h4>
+                  <div>+92-3346971121</div>
+                </a>
               </motion.div>
               <motion.div
                 className="col-md-4"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <i className="bi bi-envelope-fill display-4 text-primary"></i>
-                <h4 className="mt-3">Email</h4>
-                <p>support@hatespeechdetection.com</p>
+                <a
+                  href="mailto:support@hatespeechdetection.com"
+                  style={{
+                    display: 'block',
+                    background: 'rgba(40,40,50,0.08)',
+                    borderRadius: '1rem',
+                    padding: '2rem 1rem',
+                    textAlign: 'center',
+                    color: '#232a34',
+                    textDecoration: 'none',
+                    fontWeight: 500,
+                    boxShadow: '0 2px 12px rgba(79,140,255,0.08)',
+                    transition: 'background 0.2s, box-shadow 0.2s',
+                  }}
+                  onMouseOver={e => e.currentTarget.style.background = 'rgba(79,140,255,0.10)'}
+                  onMouseOut={e => e.currentTarget.style.background = 'rgba(40,40,50,0.08)'}
+                >
+                  <i className="bi bi-envelope-fill display-4 text-primary"></i>
+                  <h4 className="mt-3">Email</h4>
+                  <div>support@hatespeechdetection.com</div>
+                </a>
               </motion.div>
               <motion.div
                 className="col-md-4"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <i className="bi bi-geo-alt-fill display-4 text-primary"></i>
-                <h4 className="mt-3">Visit Us</h4>
-                <p>PMAS-Arid Agriculture University, Rawalpindi, Pakistan</p>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=PMAS-Arid+Agriculture+University,+Rawalpindi,+Pakistan"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'block',
+                    background: 'rgba(40,40,50,0.08)',
+                    borderRadius: '1rem',
+                    padding: '2rem 1rem',
+                    textAlign: 'center',
+                    color: '#232a34',
+                    textDecoration: 'none',
+                    fontWeight: 500,
+                    boxShadow: '0 2px 12px rgba(79,140,255,0.08)',
+                    transition: 'background 0.2s, box-shadow 0.2s',
+                  }}
+                  onMouseOver={e => e.currentTarget.style.background = 'rgba(79,140,255,0.10)'}
+                  onMouseOut={e => e.currentTarget.style.background = 'rgba(40,40,50,0.08)'}
+                >
+                  <i className="bi bi-geo-alt-fill display-4 text-primary"></i>
+                  <h4 className="mt-3">Visit Us</h4>
+                  <div>PMAS-Arid Agriculture University, Rawalpindi, Pakistan</div>
+                </a>
               </motion.div>
             </div>
           </div>
@@ -177,7 +225,7 @@ const ContactUs = () => {
         {/* Call to Action */}
         <motion.section
           id="cta"
-          className="py-5 bg-primary text-white text-center"
+          className="py-5 bg-white text-dark text-center"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 1 }}

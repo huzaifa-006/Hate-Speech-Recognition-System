@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import { motion } from "framer-motion";
-import { registerUser } from "../services/authService";
+import { registerUser, loginUser } from "../services/authService";
 
 const Register = () => {
   const { login } = useContext(AuthContext);
@@ -30,10 +30,13 @@ const Register = () => {
     }
 
     try {
-      let payload={username:userData.name,email:userData.email, password:userData.password}
-      const response = await registerUser(payload);
-      login(response);
-      navigate("/");
+      let payload = { username: userData.name, email: userData.email, password: userData.password };
+      await registerUser(payload);
+      // Now log in the user automatically
+      const loginPayload = { username: userData.name, password: userData.password };
+      const loginResponse = await loginUser(loginPayload);
+      login(loginResponse);
+      navigate("/dashboard");
     } catch (err) {
       setError("Registration failed, please try again.");
     }
